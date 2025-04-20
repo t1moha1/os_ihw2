@@ -39,7 +39,7 @@ int cmp_book(const void *a, const void *b) {
     return (((Book *)a) ->title - ((Book *)b) ->title);
 }
 
-
+//функция для осбождения всех ресурсов
 void clean(void) {
     if (getpid() == parent_pid && child_pids) {
         for (int i = 0; i < child_count; i++) {
@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
     int K = atoi(argv[3]); 
     total = M * N * K;
 
-
+// цепляем фенкцию clean к exit
     atexit(clean);
     struct sigaction sa = {0};
     sa.sa_handler = handle_signal;
@@ -116,7 +116,7 @@ int main(int argc, char *argv[]) {
     //Разделяемая памаять для каталога
     shm_cat_fd = shm_open(CATALOG_SHM, O_CREAT | O_RDWR, 0666);
     if (shm_cat_fd < 0) {
-        perror("shm_open cat ");
+        perror("shm_open cat");
         return 1;
     }
     size_t cat_size = sizeof(int) + total * sizeof(Book);
@@ -169,7 +169,7 @@ int main(int argc, char *argv[]) {
     free(titles);
 
 
-    printf("Блок отделенный --- это ряд библитеки, каждая строка в блоке это шкаф\n");
+    printf("Блок отделенный --- это ряд библитоеки, каждая строка в блоке это шкаф\n");
     printf("Исходное положение(ряд(row), колонка(col), номер в шкафу(pos) -> название):\n");
     for (int r = 0; r < M; r++) {
         for (int c = 0; c < N; c++) {
