@@ -1,6 +1,6 @@
 #!/bin/bash
 
-clang 5b.c -o program
+gcc 5b.c -o program -lrt -pthread
 
 echo "Test 1:"
 ./program 3 3 4
